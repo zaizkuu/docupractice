@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocuPractice — Albao Group</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       NEUMORPHISM DESIGN SYSTEM
+       ============================================================ */
+    :root {
+      --bg: #e0e5ec;
+      --bg-dark: #d1d9e6;
+      --text: #2d3748;
+      --text-muted: #636e80;
+      --text-light: #8895a7;
+      --accent: #6c63ff;
+      --accent-light: #8b83ff;
+      --accent-glow: rgba(108, 99, 255, 0.25);
+      --success: #48bb78;
+      --warning: #ecc94b;
+      --danger: #fc8181;
+      --info: #63b3ed;
+      /* Neumorphic shadows */
+      --shadow-raised: 6px 6px 12px #b8bec7, -6px -6px 12px #ffffff;
+      --shadow-raised-sm: 3px 3px 6px #b8bec7, -3px -3px 6px #ffffff;
+      --shadow-raised-lg: 10px 10px 20px #b8bec7, -10px -10px 20px #ffffff;
+      --shadow-inset: inset 3px 3px 6px #b8bec7, inset -3px -3px 6px #ffffff;
+      --shadow-inset-sm: inset 2px 2px 4px #b8bec7, inset -2px -2px 4px #ffffff;
+      --shadow-flat: 2px 2px 4px #b8bec7, -2px -2px 4px #ffffff;
+      --shadow-pressed: inset 4px 4px 8px #b8bec7, inset -4px -4px 8px #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes ringFill {
+      from { stroke-dashoffset: var(--ring-circum); }
+      to { stroke-dashoffset: var(--ring-target); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .fade-up { animation: fadeInUp 0.4s ease-out both; }
+    .fade-in { animation: fadeIn 0.3s ease-out both; }
+    .slide-in { animation: slideIn 0.35s ease-out both; }
+
+    /* ============================================================
+       NEUMORPHIC COMPONENTS
+       ============================================================ */
+    .neu-card {
+      background: var(--bg);
+      border-radius: 20px;
+      box-shadow: var(--shadow-raised);
+      padding: 28px;
+      transition: box-shadow 0.3s ease;
+    }
+    .neu-card-sm {
+      background: var(--bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow-raised-sm);
+      padding: 20px;
+    }
+    .neu-card-lg {
+      background: var(--bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow-raised-lg);
+      padding: 32px;
+    }
+    .neu-inset {
+      background: var(--bg);
+      border-radius: 14px;
+      box-shadow: var(--shadow-inset);
+      padding: 20px;
+    }
+    .neu-flat {
+      background: var(--bg);
+      border-radius: 12px;
+      box-shadow: var(--shadow-flat);
+      padding: 16px;
+    }
+
+    /* Buttons */
+    .neu-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 14px;
+      border: none;
+      background: var(--bg);
+      box-shadow: var(--shadow-raised-sm);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .neu-btn:hover {
+      box-shadow: var(--shadow-raised);
+    }
+    .neu-btn:active {
+      box-shadow: var(--shadow-pressed);
+    }
+    .neu-btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 4px 4px 10px rgba(108, 99, 255, 0.3), -2px -2px 8px rgba(255, 255, 255, 0.1);
+    }
+    .neu-btn-primary:hover {
+      background: var(--accent-light);
+      box-shadow: 6px 6px 14px rgba(108, 99, 255, 0.35), -3px -3px 10px rgba(255, 255, 255, 0.15);
+    }
+    .neu-btn-primary:active {
+      box-shadow: inset 3px 3px 6px rgba(80, 70, 200, 0.4), inset -2px -2px 4px rgba(140, 130, 255, 0.2);
+    }
+    .neu-btn-danger {
+      color: #e53e3e;
+    }
+
+    /* Inputs */
+    .neu-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: none;
+      background: var(--bg);
+      box-shadow: var(--shadow-inset);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      transition: box-shadow 0.2s ease;
+      resize: vertical;
+    }
+    .neu-input::placeholder { color: var(--text-light); }
+    .neu-input:focus {
+      outline: none;
+      box-shadow: var(--shadow-inset), 0 0 0 3px var(--accent-glow);
+    }
+    textarea.neu-input { min-height: 100px; line-height: 1.6; }
+
+    .neu-select {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: none;
+      background: var(--bg);
+      box-shadow: var(--shadow-inset);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23636e80' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+    }
+    .neu-select:focus {
+      outline: none;
+      box-shadow: var(--shadow-inset), 0 0 0 3px var(--accent-glow);
+    }
+
+    /* Tags / Badges */
+    .neu-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: var(--shadow-flat);
+      background: var(--bg);
+    }
+    .neu-badge-accent { color: var(--accent); }
+    .neu-badge-success { color: var(--success); }
+    .neu-badge-warning { color: #b7791f; }
+    .neu-badge-danger { color: #e53e3e; }
+    .neu-badge-info { color: #2b6cb0; }
+
+    /* Pill dot */
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot-easy { background: var(--success); }
+    .dot-medium { background: var(--warning); }
+    .dot-hard { background: var(--danger); }
+
+    /* Progress bar */
+    .neu-progress-track {
+      height: 8px;
+      border-radius: 50px;
+      box-shadow: var(--shadow-inset-sm);
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .neu-progress-fill {
+      height: 100%;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      transition: width 0.6s ease-out;
+    }
+    .neu-progress-fill-success {
+      background: linear-gradient(135deg, #38a169, #68d391);
+    }
+    .neu-progress-fill-warning {
+      background: linear-gradient(135deg, #d69e2e, #ecc94b);
+    }
+    .neu-progress-fill-danger {
+      background: linear-gradient(135deg, #e53e3e, #fc8181);
+    }
+
+    /* Label */
+    .field-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .field-label.required::after {
+      content: ' *';
+      color: #e53e3e;
+    }
+    .field-hint {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 10px;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Scenario Card Hover */
+    .scenario-card {
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .scenario-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-raised-lg);
+    }
+    .scenario-card:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-raised-sm);
+    }
+
+    /* Divider */
+    .neu-divider {
+      height: 2px;
+      border-radius: 2px;
+      box-shadow: var(--shadow-inset-sm);
+      margin: 20px 0;
+    }
+
+    /* Score ring animation */
+    .score-ring-animated {
+      transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Section heading */
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-light);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+    }
+
+    /* Completed overlay ring */
+    .completed-ring {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      box-shadow: var(--shadow-inset-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      background: var(--bg);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .neu-card { padding: 20px; border-radius: 16px; }
+      .neu-card-lg { padding: 24px; border-radius: 20px; }
+      .grid-2 { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="app" style="max-width: 1100px; margin: 0 auto; padding: 24px;">
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header style="margin-bottom: 32px;">
+    <div class="neu-card" style="padding: 24px 28px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div style="width: 52px; height: 52px; border-radius: 16px; box-shadow: var(--shadow-raised-sm); display: flex; align-items: center; justify-content: center; font-size: 24px; background: var(--bg);">📋</div>
+          <div>
+            <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">DocuPractice</h1>
+            <p style="font-size: 13px; color: var(--text-muted);">Professional Practices & Documentation — <strong>Albao Group</strong></p>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--text-muted);">
+          <div class="neu-badge" id="completedBadge">
+            <span>📊</span>
+            <span id="completedCount">0 / 6</span>
+          </div>
+          <div class="neu-badge" id="avgScoreBadge" style="display: none;">
+            <span>🏆</span>
+            <span id="avgScoreVal">0%</span>
+          </div>
+        </div>
+      </div>
+      <!-- Topic pills -->
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px;">
+        <div class="neu-badge neu-badge-info">📋 Documentation Standards</div>
+        <div class="neu-badge neu-badge-success">🔒 IT Policies & Compliance</div>
+        <div class="neu-badge neu-badge-accent">⚖️ Ethical Issues in Sys Admin</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       DASHBOARD VIEW
+       ============================================================ -->
+  <div id="dashboardView">
+    <!-- How it works -->
+    <div class="neu-card fade-up" style="margin-bottom: 28px;">
+      <div style="display: flex; align-items: flex-start; gap: 14px;">
+        <div style="width: 44px; height: 44px; border-radius: 14px; box-shadow: var(--shadow-raised-sm); display: flex; align-items: center; justify-content: center; font-size: 20px; background: var(--bg); flex-shrink: 0;">🎯</div>
+        <div>
+          <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 8px;">How This Works</h2>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.7;">
+            Select a scenario below. Each one presents a <strong>real-world IT situation</strong> that requires proper documentation following 
+            international standards (ISO 27001, ISO 20000, ITIL, COBIT, NIST 800-88). Read the scenario, fill in the documentation form, 
+            then submit for <strong>automated evaluation</strong> on completeness, accuracy, and compliance.
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px;">
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted);"><span class="dot dot-easy"></span> Easy</span>
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted);"><span class="dot dot-medium"></span> Medium</span>
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted);"><span class="dot dot-hard"></span> Hard</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenario Grid -->
+    <div id="scenarioGrid" class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;"></div>
+  </div>
+
+  <!-- ============================================================
+       SCENARIO VIEW
+       ============================================================ -->
+  <div id="scenarioView" style="display: none;">
+    <button onclick="goBack()" class="neu-btn" style="margin-bottom: 20px; font-size: 13px; padding: 10px 20px;">
+      ← Back to Scenarios
+    </button>
+    <div id="scenarioContent"></div>
+  </div>
+
+  <!-- ============================================================
+       RESULTS VIEW
+       ============================================================ -->
+  <div id="resultsView" style="display: none;">
+    <button onclick="goBack()" class="neu-btn" style="margin-bottom: 20px; font-size: 13px; padding: 10px 20px;">
+      ← Back to Scenarios
+    </button>
+    <div id="resultsContent"></div>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// SCENARIOS DATA
+// ============================================================
+const scenarios = [
+  {
+    id: 1,
+    title: "Server Room Security Incident",
+    category: "IT Policies & Compliance",
+    catBadge: "neu-badge-success",
+    difficulty: "easy",
+    standard: "ISO/IEC 27001:2022 — Incident Management (A.5.24–A.5.28)",
+    icon: "🔐",
+    scenario: `At 2:35 AM on October 15, 2026, the building's CCTV system captured an unauthorized individual tailgating an employee into the server room at Albao Group's main office. The intruder was in the server room for approximately 12 minutes before being detected by a security guard during a routine patrol. During this time, the intruder was observed near Rack B3, which houses the primary database server and backup storage units. No physical damage was found, but USB port activity was logged on Server DB-PRIMARY-01 at 2:41 AM. The intruder fled when confronted and has not been identified. The security guard (Juan Dela Cruz, ID: SG-0042) secured the room and notified the IT department head.`,
+    instructions: "Document this security incident following ISO/IEC 27001 incident management procedures. Include all relevant details for a formal incident report.",
+    fields: [
+      { id: "incidentId", label: "Incident Report ID", type: "text", placeholder: "e.g., INC-2026-1015-001", hint: "Use a systematic numbering format: INC-YYYY-MMDD-###", required: true, category: "header" },
+      { id: "incidentDate", label: "Date & Time of Incident", type: "text", placeholder: "e.g., 2026-10-15, 02:35 AM (UTC+8)", hint: "Use ISO 8601 format where possible", required: true, category: "header" },
+      { id: "reportDate", label: "Date & Time of Report", type: "text", placeholder: "e.g., 2026-10-15, 03:00 AM (UTC+8)", hint: "When was this report created?", required: true, category: "header" },
+      { id: "reportedBy", label: "Reported By", type: "text", placeholder: "Name, Position, ID", hint: "Full identity of the person filing the report", required: true, category: "header" },
+      { id: "classification", label: "Incident Classification", type: "select", options: ["Select classification...", "Physical Security Breach", "Unauthorized Access - Logical", "Data Breach", "Malware Incident", "Social Engineering", "Policy Violation", "Other"], hint: "Classify per ISO 27001 Annex A categories", required: true, category: "classification" },
+      { id: "severity", label: "Severity Level", type: "select", options: ["Select severity...", "Critical — Immediate threat to business continuity", "High — Significant impact, urgent response required", "Medium — Moderate impact, timely response needed", "Low — Minor impact, routine handling"], hint: "Based on potential impact to confidentiality, integrity, and availability (CIA triad)", required: true, category: "classification" },
+      { id: "description", label: "Detailed Description of Incident", type: "textarea", placeholder: "Provide a comprehensive, factual account of what happened...", hint: "Include who, what, when, where, how. Be factual and objective — avoid speculation.", required: true, category: "details" },
+      { id: "assetsAffected", label: "Assets Affected", type: "textarea", placeholder: "List all affected systems, hardware, data, and personnel...", hint: "Reference asset IDs from the asset register (ISO 27001 A.5.9)", required: true, category: "details" },
+      { id: "immediateActions", label: "Immediate Actions Taken", type: "textarea", placeholder: "What containment or response actions were taken immediately?", hint: "Document the incident response steps per your IRP (Incident Response Plan)", required: true, category: "response" },
+      { id: "evidencePreserved", label: "Evidence Preserved", type: "textarea", placeholder: "List all evidence collected and preservation methods...", hint: "Chain of custody must be maintained (ISO 27001 A.5.28). Include CCTV footage, logs, etc.", required: true, category: "response" },
+      { id: "rootCause", label: "Preliminary Root Cause Analysis", type: "textarea", placeholder: "What is the suspected root cause?", hint: "Use the 5 Whys or Fishbone technique. Identify control failures.", required: false, category: "analysis" },
+      { id: "recommendations", label: "Corrective Actions & Recommendations", type: "textarea", placeholder: "What measures should be implemented to prevent recurrence?", hint: "Propose controls aligned with ISO 27001 Annex A (e.g., access controls, monitoring)", required: true, category: "analysis" },
+      { id: "notifications", label: "Notifications & Escalations", type: "textarea", placeholder: "Who was notified? Any regulatory reporting required?", hint: "Consider NPC (National Privacy Commission), management, affected parties", required: false, category: "analysis" }
+    ],
+    evaluationCriteria: [
+      { field: "incidentId", check: "notEmpty", weight: 5, feedback: "A systematic incident ID enables tracking and auditability." },
+      { field: "incidentDate", check: "containsDate", weight: 8, feedback: "Precise date/time with timezone is critical for incident timeline reconstruction." },
+      { field: "reportDate", check: "notEmpty", weight: 5, feedback: "Report date establishes the response time gap." },
+      { field: "reportedBy", check: "notEmpty", weight: 5, feedback: "Accountability requires clear identification of the reporter." },
+      { field: "classification", check: "selected", weight: 8, feedback: "Proper classification drives the correct incident response procedure." },
+      { field: "severity", check: "selected", weight: 8, feedback: "Severity determines resource allocation and escalation path." },
+      { field: "description", check: "minLength100", weight: 15, feedback: "A thorough factual description is the foundation of any incident report." },
+      { field: "assetsAffected", check: "minLength30", weight: 10, feedback: "Asset identification links to the organization's asset register (ISO 27001 A.5.9)." },
+      { field: "immediateActions", check: "minLength30", weight: 12, feedback: "Documenting response actions shows compliance with your Incident Response Plan." },
+      { field: "evidencePreserved", check: "minLength30", weight: 10, feedback: "Evidence preservation with chain of custody is required under ISO 27001 A.5.28." },
+      { field: "rootCause", check: "minLength20", weight: 7, feedback: "Root cause analysis prevents recurrence and demonstrates continual improvement." },
+      { field: "recommendations", check: "minLength30", weight: 12, feedback: "Corrective actions close the PDCA (Plan-Do-Check-Act) loop required by ISO 27001." }
+    ]
+  },
+  {
+    id: 2,
+    title: "Change Request: Firewall Rule Modification",
+    category: "Documentation Standards",
+    catBadge: "neu-badge-info",
+    difficulty: "medium",
+    standard: "ITIL v4 — Change Enablement / ISO/IEC 20000-1:2018",
+    icon: "🔧",
+    scenario: `The marketing department at Albao Group has requested access to a new cloud-based analytics platform (DataViz Pro, hosted at analytics.datavizpro.com, IPs: 203.45.67.89-91). This requires modifying the corporate firewall (Palo Alto PA-3260, Asset ID: FW-MAIN-01) to allow outbound HTTPS (port 443) traffic to these IP addresses from the Marketing VLAN (VLAN 40, subnet 10.10.40.0/24). The marketing manager, Maria Santos, has submitted the business justification: the platform is needed for the Q4 2026 marketing campaign analytics, starting November 1, 2026. The change needs to go through proper change management procedures before implementation.`,
+    instructions: "Create a formal Change Request document following ITIL Change Enablement practices and ISO/IEC 20000 requirements.",
+    fields: [
+      { id: "changeId", label: "Change Request ID", type: "text", placeholder: "e.g., CR-2026-0289", hint: "Sequential change request identifier", required: true, category: "header" },
+      { id: "changeTitle", label: "Change Title", type: "text", placeholder: "Brief descriptive title for this change", hint: "Concise but descriptive enough to identify the change", required: true, category: "header" },
+      { id: "requestor", label: "Requestor", type: "text", placeholder: "Name, Department, Contact", hint: "The person or department requesting the change", required: true, category: "header" },
+      { id: "changeType", label: "Change Type", type: "select", options: ["Select type...", "Standard Change — Pre-approved, low-risk", "Normal Change — Requires CAB assessment", "Emergency Change — Urgent, expedited approval"], hint: "ITIL categorizes changes by risk and urgency", required: true, category: "classification" },
+      { id: "priority", label: "Priority", type: "select", options: ["Select priority...", "Critical", "High", "Medium", "Low"], hint: "Based on business impact and urgency", required: true, category: "classification" },
+      { id: "businessJustification", label: "Business Justification", type: "textarea", placeholder: "Why is this change needed? What business value does it provide?", hint: "Link to business objectives — this justifies the risk", required: true, category: "details" },
+      { id: "changeDescription", label: "Technical Description of Change", type: "textarea", placeholder: "Describe exactly what will be changed, including specific configurations...", hint: "Be precise — include IPs, ports, protocols, device IDs, VLAN details", required: true, category: "details" },
+      { id: "riskAssessment", label: "Risk Assessment", type: "textarea", placeholder: "Identify risks: What could go wrong? What is the impact if it fails?", hint: "Consider security risks, service disruption, and compliance impact", required: true, category: "risk" },
+      { id: "rollbackPlan", label: "Rollback / Back-out Plan", type: "textarea", placeholder: "How will the change be reversed if something goes wrong?", hint: "Every change MUST have a tested rollback plan (ITIL best practice)", required: true, category: "risk" },
+      { id: "testPlan", label: "Test Plan", type: "textarea", placeholder: "How will you verify the change was successful?", hint: "Define acceptance criteria and testing steps", required: true, category: "implementation" },
+      { id: "implementationPlan", label: "Implementation Schedule", type: "textarea", placeholder: "When will this be implemented? Steps and timeline?", hint: "Include maintenance window, duration, and assigned personnel", required: true, category: "implementation" },
+      { id: "approvals", label: "Required Approvals", type: "textarea", placeholder: "List all required approvers (CAB, security, management...)", hint: "ITIL requires appropriate authorization before implementation", required: true, category: "implementation" }
+    ],
+    evaluationCriteria: [
+      { field: "changeId", check: "notEmpty", weight: 5, feedback: "A unique Change ID enables traceability throughout the change lifecycle." },
+      { field: "changeTitle", check: "notEmpty", weight: 5, feedback: "A clear title helps the CAB quickly understand the change scope." },
+      { field: "requestor", check: "notEmpty", weight: 5, feedback: "Identifying the requestor establishes accountability." },
+      { field: "changeType", check: "selected", weight: 8, feedback: "Change type determines the approval workflow (Standard, Normal, or Emergency)." },
+      { field: "priority", check: "selected", weight: 5, feedback: "Priority helps the CAB schedule and allocate resources." },
+      { field: "businessJustification", check: "minLength50", weight: 12, feedback: "A strong business case is essential — changes without justification should be rejected." },
+      { field: "changeDescription", check: "minLength80", weight: 15, feedback: "Technical precision prevents misimplementation and enables peer review." },
+      { field: "riskAssessment", check: "minLength50", weight: 12, feedback: "Risk assessment is mandatory under ITIL and ISO 20000." },
+      { field: "rollbackPlan", check: "minLength30", weight: 12, feedback: "No rollback plan = no change approval. This is a fundamental ITIL principle." },
+      { field: "testPlan", check: "minLength30", weight: 8, feedback: "Verification ensures the change achieves its intended outcome." },
+      { field: "implementationPlan", check: "minLength30", weight: 8, feedback: "Scheduling prevents conflicts and ensures appropriate resources are available." },
+      { field: "approvals", check: "minLength20", weight: 5, feedback: "Proper authorization chain prevents unauthorized changes." }
+    ]
+  },
+  {
+    id: 3,
+    title: "Unauthorized Employee Data Access",
+    category: "Ethical Issues in Sys Admin",
+    catBadge: "neu-badge-accent",
+    difficulty: "hard",
+    standard: "RA 10173 (Data Privacy Act) / ISO/IEC 27701 / Code of Ethics",
+    icon: "⚖️",
+    scenario: `During a routine audit of database access logs, you (the System Administrator) discover that a fellow system administrator, Mark Reyes (Employee ID: IT-0023), has been accessing the HR database containing employee salary records, personal identification numbers, and performance reviews. Mark's role does not require access to HR data — he manages the network infrastructure. The access logs show 14 separate queries over the past 30 days, mostly during off-hours (10 PM – 2 AM). When you casually mentioned the HR database at lunch, Mark became visibly uncomfortable and changed the subject. You also noticed that Mark recently applied for a team lead position and some of the accessed records belong to other candidates for the same position. No data exfiltration has been confirmed yet, but the access pattern is suspicious.`,
+    instructions: "Document this ethical concern following proper reporting procedures, data privacy regulations, and professional ethics guidelines.",
+    fields: [
+      { id: "reportId", label: "Ethics/Privacy Report ID", type: "text", placeholder: "e.g., ETH-2026-0015", hint: "Systematic identifier for the ethics report", required: true, category: "header" },
+      { id: "reportDate", label: "Date of Report", type: "text", placeholder: "e.g., 2026-10-28", required: true, category: "header" },
+      { id: "reporterInfo", label: "Reporter Information", type: "text", placeholder: "Your name, position, employee ID", hint: "Whistleblower protections may apply under RA 10173", required: true, category: "header" },
+      { id: "subjectInfo", label: "Subject of Report", type: "text", placeholder: "Identity of the person under concern", hint: "Include only facts necessary for investigation — respect due process", required: true, category: "header" },
+      { id: "legalBasis", label: "Applicable Laws & Standards", type: "textarea", placeholder: "Which laws, regulations, and ethical standards apply?", hint: "Consider: RA 10173, NPC Circulars, ISO 27701, ACM/IEEE Code of Ethics, company policies", required: true, category: "legal" },
+      { id: "factualAccount", label: "Factual Account of Discovery", type: "textarea", placeholder: "Describe exactly what you found, how you found it, and when. Stick to facts only.", hint: "Separate facts from interpretation. Include specific dates, times, and log references.", required: true, category: "details" },
+      { id: "dataCategories", label: "Categories of Personal Data Potentially Compromised", type: "textarea", placeholder: "What types of personal/sensitive data were accessed?", hint: "RA 10173 distinguishes between personal information and sensitive personal information", required: true, category: "details" },
+      { id: "ethicalAnalysis", label: "Ethical Analysis", type: "textarea", placeholder: "Analyze the ethical dimensions: conflicts of interest, breach of trust, professional duties...", hint: "Reference professional codes of ethics. Consider: duty of confidentiality, least privilege, conflict of interest", required: true, category: "analysis" },
+      { id: "potentialViolations", label: "Potential Violations Identified", type: "textarea", placeholder: "What policies, laws, or ethical principles may have been violated?", hint: "Be specific: cite the section/article of each law or policy", required: true, category: "analysis" },
+      { id: "recommendedActions", label: "Recommended Actions", type: "textarea", placeholder: "What steps should be taken? Consider investigation, containment, and disciplinary aspects...", hint: "Balance: investigation integrity, employee rights, data subject protection, organizational duty", required: true, category: "response" },
+      { id: "confidentiality", label: "Confidentiality & Handling Instructions", type: "textarea", placeholder: "Who should see this report? How should it be handled?", hint: "This report itself contains sensitive information — document its handling restrictions", required: true, category: "response" },
+      { id: "dpoNotification", label: "DPO/NPC Notification Assessment", type: "textarea", placeholder: "Does this require notification to the DPO or National Privacy Commission?", hint: "RA 10173 Sec. 20(f) requires breach notification within 72 hours if risk to data subjects exists", required: false, category: "response" }
+    ],
+    evaluationCriteria: [
+      { field: "reportId", check: "notEmpty", weight: 3, feedback: "A tracking ID ensures the report enters the formal ethics review process." },
+      { field: "reportDate", check: "notEmpty", weight: 3, feedback: "Timeliness of reporting is a factor in ethical compliance." },
+      { field: "reporterInfo", check: "notEmpty", weight: 5, feedback: "Identifying yourself enables follow-up while whistleblower protections safeguard you." },
+      { field: "subjectInfo", check: "notEmpty", weight: 5, feedback: "Fair identification respects due process while enabling investigation." },
+      { field: "legalBasis", check: "minLength50", weight: 12, feedback: "Identifying the legal framework demonstrates professional competence." },
+      { field: "factualAccount", check: "minLength100", weight: 15, feedback: "Objective, detailed facts are the foundation of any ethics investigation." },
+      { field: "dataCategories", check: "minLength30", weight: 8, feedback: "Data classification determines the severity under RA 10173." },
+      { field: "ethicalAnalysis", check: "minLength80", weight: 15, feedback: "Ethical reasoning shows professional maturity and supports decision-making." },
+      { field: "potentialViolations", check: "minLength50", weight: 10, feedback: "Specific citations of violated provisions guide the investigation." },
+      { field: "recommendedActions", check: "minLength50", weight: 12, feedback: "Actionable recommendations demonstrate leadership and responsibility." },
+      { field: "confidentiality", check: "minLength30", weight: 7, feedback: "Protecting the report itself shows awareness of information sensitivity." },
+      { field: "dpoNotification", check: "minLength20", weight: 5, feedback: "Assessing notification obligations is required under RA 10173." }
+    ]
+  },
+  {
+    id: 4,
+    title: "System Backup & Recovery Procedure",
+    category: "Documentation Standards",
+    catBadge: "neu-badge-info",
+    difficulty: "easy",
+    standard: "ISO/IEC 27001:2022 (A.8.13) / ISO 22301 — Business Continuity",
+    icon: "💾",
+    scenario: `Albao Group is implementing a formal backup and recovery procedure for its critical systems. The IT Manager has tasked you with creating the Standard Operating Procedure (SOP) document. The environment includes: 3 production database servers (MySQL, Ubuntu 22.04), 2 file servers (Windows Server 2022, 8TB total), and 1 email server (Exchange 2019). Backups must comply with the 3-2-1 rule (3 copies, 2 different media, 1 offsite). The current solution uses Veeam Backup & Replication v12. RPO is 4 hours for databases and 24 hours for file servers. RTO is 2 hours for databases and 8 hours for file servers.`,
+    instructions: "Create a Standard Operating Procedure (SOP) document for the backup and recovery process following ISO documentation standards.",
+    fields: [
+      { id: "docId", label: "Document ID", type: "text", placeholder: "e.g., SOP-IT-BKP-001", hint: "Follow a consistent document numbering scheme", required: true, category: "header" },
+      { id: "docTitle", label: "Document Title", type: "text", placeholder: "Full title of the SOP", hint: "Should clearly indicate the scope of the procedure", required: true, category: "header" },
+      { id: "version", label: "Version & Revision History", type: "text", placeholder: "e.g., v1.0 — Initial release — 2026-10-28", hint: "ISO requires version control for all controlled documents", required: true, category: "header" },
+      { id: "owner", label: "Document Owner & Approver", type: "text", placeholder: "Who owns, reviews, and approves this document?", hint: "ISO 27001 requires defined ownership (Clause 7.5)", required: true, category: "header" },
+      { id: "purpose", label: "Purpose & Scope", type: "textarea", placeholder: "What is the purpose of this SOP and what systems does it cover?", hint: "Clearly define what is in scope and what is excluded", required: true, category: "details" },
+      { id: "definitions", label: "Definitions & Acronyms", type: "textarea", placeholder: "Define key terms: RPO, RTO, 3-2-1 rule, etc.", hint: "ISO standards require that documents be understandable to the intended audience", required: true, category: "details" },
+      { id: "backupSchedule", label: "Backup Schedule & Types", type: "textarea", placeholder: "Define the backup schedule: full, incremental, differential — for each system", hint: "Include frequency, timing, retention periods, and backup types per system", required: true, category: "procedure" },
+      { id: "procedure", label: "Step-by-Step Backup Procedure", type: "textarea", placeholder: "Detailed steps for executing the backup process...", hint: "Should be detailed enough for any trained operator to follow", required: true, category: "procedure" },
+      { id: "recoveryProcedure", label: "Recovery Procedure", type: "textarea", placeholder: "Step-by-step instructions for restoring from backup...", hint: "Include verification steps — a backup is useless if recovery isn't tested", required: true, category: "procedure" },
+      { id: "testing", label: "Backup Testing & Verification", type: "textarea", placeholder: "How and when are backups tested for integrity?", hint: "ISO 27001 A.8.13 requires regular testing of backup procedures", required: true, category: "verification" },
+      { id: "roles", label: "Roles & Responsibilities", type: "textarea", placeholder: "Who is responsible for what in the backup process?", hint: "Use a RACI matrix format if appropriate", required: true, category: "verification" }
+    ],
+    evaluationCriteria: [
+      { field: "docId", check: "notEmpty", weight: 5, feedback: "Document ID is mandatory for controlled documents under ISO 27001 Clause 7.5." },
+      { field: "docTitle", check: "notEmpty", weight: 5, feedback: "A clear title enables quick identification in the document management system." },
+      { field: "version", check: "notEmpty", weight: 8, feedback: "Version control ensures everyone uses the current approved version." },
+      { field: "owner", check: "notEmpty", weight: 5, feedback: "Document ownership ensures accountability for reviews and updates." },
+      { field: "purpose", check: "minLength50", weight: 10, feedback: "Clear scope prevents ambiguity about what this SOP covers." },
+      { field: "definitions", check: "minLength30", weight: 8, feedback: "Definitions ensure consistent understanding across all readers." },
+      { field: "backupSchedule", check: "minLength50", weight: 12, feedback: "A detailed schedule is the core of any backup SOP." },
+      { field: "procedure", check: "minLength80", weight: 15, feedback: "Step-by-step procedures must be detailed enough for any trained operator." },
+      { field: "recoveryProcedure", check: "minLength50", weight: 12, feedback: "Recovery procedures are arguably more important than backup procedures." },
+      { field: "testing", check: "minLength30", weight: 10, feedback: "Untested backups are unreliable — ISO 27001 mandates regular testing." },
+      { field: "roles", check: "minLength30", weight: 10, feedback: "Clear RACI prevents gaps in responsibility." }
+    ]
+  },
+  {
+    id: 5,
+    title: "Acceptable Use Policy Violation",
+    category: "IT Policies & Compliance",
+    catBadge: "neu-badge-success",
+    difficulty: "medium",
+    standard: "ISO/IEC 27001:2022 (A.5.10) / COBIT 2019 — DSS05",
+    icon: "📜",
+    scenario: `The network monitoring system at Albao Group has flagged unusual bandwidth from workstation WS-MKT-015 (assigned to Ana Reyes, Marketing Dept, ID: MKT-0089). Analysis reveals: (1) 47GB downloaded via BitTorrent, including copyrighted movies and software; (2) Installation of unauthorized software: NordVPN (to bypass web filter) and NiceHash Miner (cryptocurrency); (3) Mining software consuming 85% CPU during work hours, slowing the shared network segment; (4) Web filter bypass logs show gambling site access during work hours. The employee has a signed Acceptable Use Policy (AUP) on file dated January 15, 2026.`,
+    instructions: "Document this AUP violation following proper compliance and disciplinary documentation procedures.",
+    fields: [
+      { id: "violationId", label: "Violation Report ID", type: "text", placeholder: "e.g., AUP-VIO-2026-0034", hint: "Systematic violation tracking number", required: true, category: "header" },
+      { id: "dateDetected", label: "Date Detected", type: "text", placeholder: "e.g., 2026-10-28", required: true, category: "header" },
+      { id: "employeeInfo", label: "Employee Information", type: "textarea", placeholder: "Full employee details: name, ID, department, workstation, supervisor", hint: "Include all identifying information for the formal record", required: true, category: "header" },
+      { id: "policyReference", label: "Policy References Violated", type: "textarea", placeholder: "List specific AUP sections and other policies violated...", hint: "Reference exact section numbers from the AUP and other applicable policies", required: true, category: "violations" },
+      { id: "violationDetails", label: "Detailed Description of Violations", type: "textarea", placeholder: "Describe each violation with specific evidence and dates...", hint: "Each violation should be documented separately with supporting evidence", required: true, category: "violations" },
+      { id: "evidence", label: "Evidence Collected", type: "textarea", placeholder: "Network logs, screenshots, software inventory scan results...", hint: "Maintain chain of custody. Evidence must be timestamped and authenticated.", required: true, category: "evidence" },
+      { id: "impact", label: "Impact Assessment", type: "textarea", placeholder: "What impact did these violations have on the organization?", hint: "Consider: security risks, legal liability (copyright), resource consumption, productivity", required: true, category: "evidence" },
+      { id: "legalImplications", label: "Legal & Regulatory Implications", type: "textarea", placeholder: "What legal risks does this create for the organization?", hint: "Consider: copyright infringement liability, data privacy, cybersecurity law", required: true, category: "analysis" },
+      { id: "previousIncidents", label: "Prior Violations / Warnings", type: "textarea", placeholder: "Any previous violations or warnings on file?", hint: "Progressive discipline requires documentation of prior incidents", required: false, category: "analysis" },
+      { id: "recommendedAction", label: "Recommended Disciplinary Action", type: "textarea", placeholder: "What action is recommended and why?", hint: "Must be proportionate and consistent with company policy. Follow progressive discipline.", required: true, category: "resolution" },
+      { id: "preventive", label: "Preventive Measures", type: "textarea", placeholder: "What technical and administrative controls should be implemented?", hint: "Address the root cause: How did the employee bypass existing controls?", required: true, category: "resolution" }
+    ],
+    evaluationCriteria: [
+      { field: "violationId", check: "notEmpty", weight: 4, feedback: "Tracking IDs enable case management throughout the disciplinary process." },
+      { field: "dateDetected", check: "notEmpty", weight: 4, feedback: "Detection date establishes the timeline for response." },
+      { field: "employeeInfo", check: "minLength30", weight: 6, feedback: "Complete employee identification is essential for formal proceedings." },
+      { field: "policyReference", check: "minLength30", weight: 10, feedback: "Specific policy citations are legally necessary and show the employee was on notice." },
+      { field: "violationDetails", check: "minLength100", weight: 15, feedback: "Detailed, itemized violations with evidence build an airtight case." },
+      { field: "evidence", check: "minLength50", weight: 12, feedback: "Properly collected and preserved evidence protects the organization legally." },
+      { field: "impact", check: "minLength50", weight: 10, feedback: "Impact assessment justifies the severity of disciplinary action." },
+      { field: "legalImplications", check: "minLength30", weight: 10, feedback: "Legal awareness demonstrates compliance maturity." },
+      { field: "previousIncidents", check: "minLength10", weight: 4, feedback: "Documenting prior history supports progressive discipline." },
+      { field: "recommendedAction", check: "minLength50", weight: 15, feedback: "Proportionate, well-justified action protects against wrongful termination claims." },
+      { field: "preventive", check: "minLength30", weight: 10, feedback: "Closing control gaps prevents similar future violations." }
+    ]
+  },
+  {
+    id: 6,
+    title: "IT Asset Disposal & Data Sanitization",
+    category: "Ethical Issues in Sys Admin",
+    catBadge: "neu-badge-accent",
+    difficulty: "hard",
+    standard: "ISO/IEC 27001:2022 (A.7.14, A.8.10) / NIST SP 800-88 Rev. 1",
+    icon: "🗑️",
+    scenario: `Albao Group is decommissioning 25 desktops (Dell OptiPlex 7090, purchased 2021) and 3 servers (Dell PowerEdge R740, purchased 2019). These machines handled: (1) Client personal data including financial records, (2) Employee HR records including medical information, (3) Company trade secrets and strategic plans, (4) Customer database with 15,000+ records. Plan: donate 15 desktops to a local school, sell 10 to a refurbisher, and dispose of 3 servers via e-waste recycler. The DPO has raised concerns — last year, a donated laptop was found to still contain employee records. All data must be irrecoverably destroyed before equipment leaves the premises.`,
+    instructions: "Create a comprehensive IT Asset Disposal and Data Sanitization record following NIST 800-88 and ISO 27001 requirements.",
+    fields: [
+      { id: "disposalId", label: "Disposal Batch ID", type: "text", placeholder: "e.g., DISP-2026-Q4-001", hint: "Batch tracking for the disposal project", required: true, category: "header" },
+      { id: "disposalDate", label: "Target Disposal Date", type: "text", placeholder: "e.g., 2026-11-15", required: true, category: "header" },
+      { id: "responsibleOfficer", label: "Responsible Officer", type: "text", placeholder: "Name, position, and authorization level", hint: "Must have appropriate authority for data destruction decisions", required: true, category: "header" },
+      { id: "assetInventory", label: "Asset Inventory", type: "textarea", placeholder: "List all assets: Asset ID, Type, Serial Number, Department, Data Classification...", hint: "Each asset must be individually tracked. Reference the asset register.", required: true, category: "inventory" },
+      { id: "dataClassification", label: "Data Classification & Sensitivity", type: "textarea", placeholder: "What types of data were stored? Classify each category...", hint: "RA 10173 defines: Personal Information, Sensitive Personal Information, Privileged Information", required: true, category: "inventory" },
+      { id: "sanitizationMethod", label: "Data Sanitization Methods per NIST 800-88", type: "textarea", placeholder: "For each asset type, specify: Clear, Purge, or Destroy. Justify your choice.", hint: "NIST 800-88: Clear (overwrite), Purge (degauss/crypto erase), Destroy (physical). Choose based on sensitivity.", required: true, category: "procedure" },
+      { id: "sanitizationProcedure", label: "Sanitization Procedure Steps", type: "textarea", placeholder: "Step-by-step procedure for the data sanitization process...", hint: "Include: pre-sanitization backup verification, sanitization, and post-sanitization verification", required: true, category: "procedure" },
+      { id: "verificationMethod", label: "Verification & Certification", type: "textarea", placeholder: "How will you verify data was completely destroyed? Who certifies?", hint: "NIST 800-88 requires verification. Consider using forensic tools to confirm.", required: true, category: "procedure" },
+      { id: "ethicalConsiderations", label: "Ethical Considerations", type: "textarea", placeholder: "Address ethical obligations: duty to protect data subjects, environmental responsibility, digital divide...", hint: "Balance: data protection vs. environmental impact vs. social responsibility. Address the past failure.", required: true, category: "ethics" },
+      { id: "chainOfCustody", label: "Chain of Custody Documentation", type: "textarea", placeholder: "How will you track each asset from decommission to final disposal?", hint: "Assets must be tracked at every stage. Who handled it, when, where.", required: true, category: "logistics" },
+      { id: "disposalDestinations", label: "Disposal Destinations & Agreements", type: "textarea", placeholder: "Detail the recipients and any required agreements or contracts...", hint: "Donation agreements, sale contracts, e-waste certificates — all needed for compliance", required: true, category: "logistics" },
+      { id: "lessonsLearned", label: "Corrective Actions from Previous Incident", type: "textarea", placeholder: "Address the DPO's concern about the previous failed disposal...", hint: "Demonstrate continual improvement (ISO 27001 Clause 10). What went wrong and how this prevents recurrence.", required: true, category: "ethics" }
+    ],
+    evaluationCriteria: [
+      { field: "disposalId", check: "notEmpty", weight: 3, feedback: "Batch tracking enables audit trail for the entire disposal project." },
+      { field: "disposalDate", check: "notEmpty", weight: 3, feedback: "Scheduling ensures proper resource allocation and oversight." },
+      { field: "responsibleOfficer", check: "notEmpty", weight: 5, feedback: "Clear accountability is essential for data destruction authorization." },
+      { field: "assetInventory", check: "minLength50", weight: 10, feedback: "Individual asset tracking is required under ISO 27001 A.5.9." },
+      { field: "dataClassification", check: "minLength50", weight: 10, feedback: "Data classification drives the sanitization method selection." },
+      { field: "sanitizationMethod", check: "minLength80", weight: 12, feedback: "NIST 800-88 method selection must be justified by data sensitivity." },
+      { field: "sanitizationProcedure", check: "minLength50", weight: 10, feedback: "Detailed procedures ensure consistent, repeatable execution." },
+      { field: "verificationMethod", check: "minLength30", weight: 10, feedback: "Unverified sanitization is untrustworthy — verification closes the loop." },
+      { field: "ethicalConsiderations", check: "minLength80", weight: 12, feedback: "Ethical reflection demonstrates professional maturity beyond mere compliance." },
+      { field: "chainOfCustody", check: "minLength30", weight: 8, feedback: "Chain of custody prevents assets from 'disappearing' during disposal." },
+      { field: "disposalDestinations", check: "minLength30", weight: 7, feedback: "Formal agreements protect the organization if data is later found." },
+      { field: "lessonsLearned", check: "minLength30", weight: 10, feedback: "Addressing past failures shows the PDCA cycle in action." }
+    ]
+  }
+];
+
+// ============================================================
+// STATE MANAGEMENT
+// ============================================================
+let completedScenarios = {};
+let savedFormData = {};
+
+try {
+  const saved = localStorage.getItem('albao_doc_practice_v2');
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    completedScenarios = parsed.completed || {};
+    savedFormData = parsed.formData || {};
+  }
+} catch(e) {}
+
+function saveState() {
+  try {
+    localStorage.setItem('albao_doc_practice_v2', JSON.stringify({
+      completed: completedScenarios,
+      formData: savedFormData
+    }));
+  } catch(e) {}
+}
+
+// ============================================================
+// RENDER DASHBOARD
+// ============================================================
+function renderDashboard() {
+  const grid = document.getElementById('scenarioGrid');
+  grid.innerHTML = '';
+
+  scenarios.forEach((s, idx) => {
+    const done = completedScenarios[s.id];
+    const score = done ? done.score : null;
+
+    const card = document.createElement('div');
+    card.className = 'neu-card scenario-card fade-up';
+    card.style.animationDelay = `${idx * 100}ms`;
+    card.style.position = 'relative';
+    card.onclick = () => openScenario(s.id);
+
+    card.innerHTML = `
+      ${done ? `<div class="completed-ring" title="Score: ${score}%">✅</div>` : ''}
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+        <div style="width: 48px; height: 48px; border-radius: 14px; box-shadow: var(--shadow-raised-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; background: var(--bg); flex-shrink: 0;">${s.icon}</div>
+        <div style="flex: 1; min-width: 0;">
+          <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 4px; line-height: 1.3;">${s.title}</h3>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="dot dot-${s.difficulty}"></span>
+            <span style="font-size: 11px; color: var(--text-light); text-transform: capitalize;">${s.difficulty}</span>
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5;">${s.standard}</p>
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        <span class="neu-badge ${s.catBadge}" style="font-size: 11px; padding: 4px 10px;">${s.category}</span>
+        ${done ? `
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="neu-progress-track" style="width: 60px;">
+              <div class="neu-progress-fill${score >= 75 ? '-success' : score >= 50 ? '-warning' : '-danger'}" style="width: ${score}%;"></div>
+            </div>
+            <span style="font-size: 12px; font-weight: 700; color: ${score >= 75 ? 'var(--success)' : score >= 50 ? '#b7791f' : '#e53e3e'};">${score}%</span>
+          </div>
+        ` : `<span style="font-size: 12px; color: var(--text-light); font-weight: 500;">Start →</span>`}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  updateHeader();
+}
+
+function updateHeader() {
+  const count = Object.keys(completedScenarios).length;
+  document.getElementById('completedCount').textContent = `${count} / ${scenarios.length}`;
+  if (count > 0) {
+    const avg = Math.round(Object.values(completedScenarios).reduce((s, c) => s + c.score, 0) / count);
+    document.getElementById('avgScoreVal').textContent = `${avg}%`;
+    document.getElementById('avgScoreBadge').style.display = '';
+  }
+}
+
+// ============================================================
+// OPEN SCENARIO
+// ============================================================
+function openScenario(id) {
+  const s = scenarios.find(x => x.id === id);
+  if (!s) return;
+
+  document.getElementById('dashboardView').style.display = 'none';
+  document.getElementById('resultsView').style.display = 'none';
+  const view = document.getElementById('scenarioView');
+  view.style.display = 'block';
+
+  const saved = savedFormData[id] || {};
+  const catLabels = {
+    header: '📋 Report Header', classification: '🏷️ Classification', details: '📝 Details',
+    response: '🚨 Response & Actions', analysis: '🔍 Analysis', legal: '⚖️ Legal Framework',
+    risk: '⚠️ Risk Assessment', implementation: '🔨 Implementation', violations: '🚫 Violations',
+    evidence: '📎 Evidence & Impact', resolution: '✅ Resolution', procedure: '⚙️ Procedure',
+    verification: '✔️ Verification', inventory: '📦 Asset Inventory', ethics: '⚖️ Ethics',
+    logistics: '🚚 Logistics & Custody'
+  };
+
+  // Group fields
+  const groups = {};
+  s.fields.forEach(f => { if (!groups[f.category]) groups[f.category] = []; groups[f.category].push(f); });
+
+  let fieldsHtml = '';
+  for (const [cat, fields] of Object.entries(groups)) {
+    fieldsHtml += `<div class="section-title" style="margin-top: 28px;">${catLabels[cat] || cat}</div>`;
+    fields.forEach(f => {
+      const val = saved[f.id] || '';
+      const reqCls = f.required ? ' required' : '';
+      fieldsHtml += `<div style="margin-bottom: 20px;">
+        <label class="field-label${reqCls}" for="f_${f.id}">${f.label}</label>
+        ${f.hint ? `<div class="field-hint">💡 ${f.hint}</div>` : ''}`;
+
+      if (f.type === 'textarea') {
+        fieldsHtml += `<textarea id="f_${f.id}" class="neu-input" placeholder="${f.placeholder || ''}" oninput="autoSave(${id})">${val}</textarea>`;
+      } else if (f.type === 'select') {
+        fieldsHtml += `<select id="f_${f.id}" class="neu-select" onchange="autoSave(${id})">`;
+        f.options.forEach((opt, i) => { fieldsHtml += `<option value="${i === 0 ? '' : opt}" ${val === opt ? 'selected' : ''}>${opt}</option>`; });
+        fieldsHtml += `</select>`;
+      } else {
+        fieldsHtml += `<input type="text" id="f_${f.id}" class="neu-input" placeholder="${f.placeholder || ''}" value="${escHtml(val)}" oninput="autoSave(${id})">`;
+      }
+      fieldsHtml += `</div>`;
+    });
+  }
+
+  document.getElementById('scenarioContent').innerHTML = `
+    <!-- Scenario Brief -->
+    <div class="neu-card-lg fade-up" style="margin-bottom: 24px;">
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px;">
+        <div style="width: 52px; height: 52px; border-radius: 16px; box-shadow: var(--shadow-raised-sm); display: flex; align-items: center; justify-content: center; font-size: 26px; background: var(--bg);">${s.icon}</div>
+        <div>
+          <h2 style="font-size: 18px; font-weight: 800; line-height: 1.3;">${s.title}</h2>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px;">
+            <span class="neu-badge ${s.catBadge}" style="font-size: 11px; padding: 4px 10px;">${s.category}</span>
+            <span class="neu-badge" style="font-size: 11px; padding: 4px 10px;">📐 ${s.standard}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="neu-inset" style="margin-bottom: 16px;">
+        <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 10px;">📖 Scenario</div>
+        <p style="font-size: 14px; line-height: 1.8; color: var(--text-muted);">${s.scenario}</p>
+      </div>
+
+      <div class="neu-flat" style="background: linear-gradient(135deg, rgba(108,99,255,0.08), rgba(108,99,255,0.03)); border: 1px solid rgba(108,99,255,0.12);">
+        <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 6px;">📝 Your Task</div>
+        <p style="font-size: 13px; color: var(--accent); line-height: 1.6;">${s.instructions}</p>
+      </div>
+    </div>
+
+    <!-- Documentation Form -->
+    <div class="neu-card-lg fade-up" style="animation-delay: 0.1s;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+        <h3 style="font-size: 16px; font-weight: 700;">Documentation Form</h3>
+        <span id="saveStatus_${id}" style="font-size: 12px; color: var(--text-light);">Auto-save enabled</span>
+      </div>
+
+      <form id="form_${id}" onsubmit="return false;">
+        ${fieldsHtml}
+      </form>
+
+      <div class="neu-divider"></div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <button onclick="submitScenario(${id})" class="neu-btn neu-btn-primary">🚀 Submit & Evaluate</button>
+        <button onclick="clearForm(${id})" class="neu-btn neu-btn-danger">🗑️ Clear Form</button>
+        ${completedScenarios[id] ? `<button onclick="showResults(${id})" class="neu-btn">📊 View Previous Results</button>` : ''}
+      </div>
+    </div>
+  `;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function escHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// ============================================================
+// AUTO-SAVE
+// ============================================================
+function autoSave(id) {
+  const s = scenarios.find(x => x.id === id);
+  if (!s) return;
+  const data = {};
+  s.fields.forEach(f => { const el = document.getElementById(`f_${f.id}`); if (el) data[f.id] = el.value; });
+  savedFormData[id] = data;
+  saveState();
+
+  const st = document.getElementById(`saveStatus_${id}`);
+  if (st) { st.textContent = '✓ Saved'; setTimeout(() => { st.textContent = 'Auto-save enabled'; }, 1500); }
+}
+
+function clearForm(id) {
+  if (!confirm('Clear all form data for this scenario?')) return;
+  const s = scenarios.find(x => x.id === id);
+  s.fields.forEach(f => { const el = document.getElementById(`f_${f.id}`); if (el) el.value = ''; });
+  delete savedFormData[id];
+  saveState();
+}
+
+// ============================================================
+// EVALUATION
+// ============================================================
+function evaluateField(value, check) {
+  const v = (value || '').trim();
+  switch (check) {
+    case 'notEmpty': return v.length > 0 ? 1 : 0;
+    case 'selected': return v.length > 0 ? 1 : 0;
+    case 'containsDate': return /\d{4}[-\/]\d{1,2}[-\/]\d{1,2}|\d{1,2}[\s\/:-]+\d{1,2}[\s\/:-]+\d{2,4}|[A-Z][a-z]+ \d{1,2}/.test(v) ? 1 : 0;
+    case 'minLength10': return v.length >= 10 ? 1 : (v.length > 0 ? 0.5 : 0);
+    case 'minLength20': return v.length >= 20 ? 1 : (v.length >= 10 ? 0.5 : (v.length > 0 ? 0.25 : 0));
+    case 'minLength30': return v.length >= 30 ? 1 : (v.length >= 15 ? 0.5 : (v.length > 0 ? 0.25 : 0));
+    case 'minLength50': return v.length >= 50 ? 1 : (v.length >= 25 ? 0.5 : (v.length > 0 ? 0.25 : 0));
+    case 'minLength80': return v.length >= 80 ? 1 : (v.length >= 40 ? 0.5 : (v.length > 0 ? 0.25 : 0));
+    case 'minLength100': return v.length >= 100 ? 1 : (v.length >= 50 ? 0.5 : (v.length > 0 ? 0.25 : 0));
+    default: return v.length > 0 ? 1 : 0;
+  }
+}
+
+function submitScenario(id) {
+  const s = scenarios.find(x => x.id === id);
+  if (!s) return;
+
+  const data = {};
+  s.fields.forEach(f => { const el = document.getElementById(`f_${f.id}`); data[f.id] = el ? el.value : ''; });
+  savedFormData[id] = data;
+
+  let totalW = 0, earnedW = 0;
+  const results = [];
+  s.evaluationCriteria.forEach(c => {
+    const val = data[c.field] || '';
+    const sc = evaluateField(val, c.check);
+    totalW += c.weight;
+    earnedW += c.weight * sc;
+    const fld = s.fields.find(f => f.id === c.field);
+    results.push({ fieldLabel: fld ? fld.label : c.field, score: sc, weight: c.weight, feedback: c.feedback, value: val });
+  });
+
+  const finalScore = Math.round((earnedW / totalW) * 100);
+  completedScenarios[id] = { score: finalScore, results, data, completedAt: new Date().toISOString() };
+  saveState();
+  showResults(id);
+}
+
+// ============================================================
+// RESULTS
+// ============================================================
+function showResults(id) {
+  const s = scenarios.find(x => x.id === id);
+  const comp = completedScenarios[id];
+  if (!s || !comp) return;
+
+  document.getElementById('dashboardView').style.display = 'none';
+  document.getElementById('scenarioView').style.display = 'none';
+  const view = document.getElementById('resultsView');
+  view.style.display = 'block';
+
+  const score = comp.score;
+  const grade = score >= 90 ? 'Excellent' : score >= 75 ? 'Good' : score >= 60 ? 'Satisfactory' : score >= 40 ? 'Needs Work' : 'Insufficient';
+  const ringColor = score >= 90 ? '#48bb78' : score >= 75 ? '#63b3ed' : score >= 60 ? '#ecc94b' : '#fc8181';
+  const circumference = 2 * Math.PI * 52;
+  const offset = circumference - (score / 100) * circumference;
+
+  let detailsHtml = '';
+  comp.results.forEach((r, i) => {
+    const icon = r.score === 1 ? '✅' : r.score >= 0.5 ? '⚠️' : '❌';
+    const barW = r.score * 100;
+    const fillCls = r.score === 1 ? '-success' : r.score >= 0.5 ? '-warning' : '-danger';
+
+    detailsHtml += `
+      <div class="neu-flat slide-in" style="margin-bottom: 12px; animation-delay: ${i * 60}ms;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+          <span style="font-size: 13px; font-weight: 600;">${icon} ${r.fieldLabel}</span>
+          <span style="font-size: 12px; font-weight: 700; color: var(--text-muted);">${Math.round(r.score * r.weight)} / ${r.weight}</span>
+        </div>
+        <div class="neu-progress-track" style="margin-bottom: 8px; height: 6px;">
+          <div class="neu-progress-fill${fillCls}" style="width: ${barW}%;"></div>
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted); font-style: italic; line-height: 1.5;">${r.feedback}</p>
+        ${r.score < 1 && !r.value.trim() ? '<p style="font-size: 11px; color: #e53e3e; margin-top: 4px;">⚠ This field was left empty.</p>' : ''}
+      </div>
+    `;
+  });
+
+  const stdTips = {
+    1: "📐 <strong>ISO 27001 Tip:</strong> Incident reports should always include CIA triad impact analysis and link to your organization's risk register.",
+    2: "📐 <strong>ITIL Tip:</strong> Every change request must have a rollback plan that's been tested. The CAB will reject changes without one.",
+    3: "📐 <strong>Ethics Tip:</strong> Professional ethics require balancing duties to the organization, data subjects, the profession, and the public.",
+    4: "📐 <strong>ISO 27001 Tip:</strong> SOPs are controlled documents — version control, review dates, owners, and approval workflows are mandatory (Clause 7.5).",
+    5: "📐 <strong>COBIT Tip:</strong> Policy enforcement must be consistent and proportionate. Document decision rationale to protect against legal challenges.",
+    6: "📐 <strong>NIST 800-88 Tip:</strong> Sanitization method must match data sensitivity. 'Clear' is insufficient for confidential data — use 'Purge' or 'Destroy'."
+  };
+
+  const weak = comp.results.filter(r => r.score < 1).sort((a, b) => b.weight - a.weight);
+  const strong = comp.results.filter(r => r.score === 1).sort((a, b) => b.weight - a.weight);
+
+  let takeaways = '';
+  if (strong.length > 0) takeaways += `<div class="neu-flat" style="margin-bottom: 10px;"><p style="font-size: 13px; line-height: 1.6;">✅ <strong>Strengths:</strong> ${strong.slice(0, 3).map(r => r.fieldLabel).join(', ')}</p></div>`;
+  if (weak.length > 0) takeaways += `<div class="neu-flat" style="margin-bottom: 10px;"><p style="font-size: 13px; line-height: 1.6;">⚠️ <strong>Improve:</strong> ${weak.slice(0, 3).map(r => r.fieldLabel).join(', ')}</p></div>`;
+  takeaways += `<div class="neu-flat"><p style="font-size: 13px; line-height: 1.6;">${stdTips[s.id]}</p></div>`;
+
+  document.getElementById('resultsContent').innerHTML = `
+    <!-- Score Card -->
+    <div class="neu-card-lg fade-up" style="margin-bottom: 24px;">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 32px; justify-content: center;">
+        <div style="flex-shrink: 0;">
+          <div class="neu-inset" style="width: 160px; height: 160px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            <svg width="130" height="130" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#d1d9e6" stroke-width="10"/>
+              <circle cx="60" cy="60" r="52" fill="none" stroke="${ringColor}" stroke-width="10"
+                stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}"
+                stroke-linecap="round" transform="rotate(-90 60 60)"
+                class="score-ring-animated" id="scoreRing"/>
+              <text x="60" y="54" text-anchor="middle" font-size="30" font-weight="800" fill="${ringColor}" font-family="Inter, sans-serif">${score}</text>
+              <text x="60" y="70" text-anchor="middle" font-size="11" font-weight="600" fill="${ringColor}" font-family="Inter, sans-serif">${grade}</text>
+            </svg>
+          </div>
+        </div>
+        <div style="flex: 1; min-width: 240px;">
+          <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 6px;">${s.icon} ${s.title}</h2>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Evaluated against: ${s.standard}</p>
+          <p style="font-size: 14px; color: var(--text); line-height: 1.6; margin-bottom: 16px;">${getScoreFeedback(score)}</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <button onclick="openScenario(${id})" class="neu-btn neu-btn-primary" style="font-size: 13px;">✏️ Revise & Resubmit</button>
+            <button onclick="goBack()" class="neu-btn" style="font-size: 13px;">← Dashboard</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Evaluation -->
+    <div class="neu-card-lg fade-up" style="animation-delay: 0.1s; margin-bottom: 24px;">
+      <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">📊 Detailed Evaluation</h3>
+      ${detailsHtml}
+    </div>
+
+    <!-- Key Takeaways -->
+    <div class="neu-card-lg fade-up" style="animation-delay: 0.2s;">
+      <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">📚 Key Takeaways</h3>
+      ${takeaways}
+    </div>
+  `;
+
+  // Animate ring
+  setTimeout(() => {
+    const ring = document.getElementById('scoreRing');
+    if (ring) ring.style.strokeDashoffset = offset;
+  }, 150);
+
+  updateHeader();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function getScoreFeedback(score) {
+  if (score >= 90) return "Outstanding! Your documentation meets professional standards and would pass an external audit.";
+  if (score >= 75) return "Good work! Most requirements are covered, with some areas for improvement.";
+  if (score >= 60) return "Satisfactory — basics are covered, but several areas need more detail for compliance.";
+  if (score >= 40) return "Needs improvement — significant gaps would be flagged during a compliance audit.";
+  return "Insufficient — most required elements are missing or incomplete. Review the standards and try again.";
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function goBack() {
+  document.getElementById('scenarioView').style.display = 'none';
+  document.getElementById('resultsView').style.display = 'none';
+  document.getElementById('dashboardView').style.display = 'block';
+  renderDashboard();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderDashboard();
+</script>
+
+</body>
+</html>
